@@ -2,12 +2,13 @@ import "./App.css";
 import Row from "./Row";
 import requests from "./requests";
 import Banner from "./Banner";
+import Nav from "./Nav";
 
 //fetchUrl gets the api url from requests.js
 function App() {
   return (
     <div className="app">
-      {/*nav*/}
+      <Nav />
       <Banner />
       <Row
         title="NETFLIX ORIGINALS"
