@@ -5,13 +5,14 @@ import React, { useState, useEffect } from "react";
 import axios from "./axios";
 import "./Row.css";
 import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";
 
 const base_url = "https://image.tmdb.org/t/p/original/";
 
 // This function controls the rows in app.js
 function Row({ title, fetchUrl, isLargeRow }) {
   const [movies, setMovies] = useState([]);
-  const [trailerUrl, srtTrailerUrl] = useState("");
+  const [trailerUrl, setTrailerUrl] = useState("");
   // A snippet of code which runs when Row() loads based on a specific condition. it will fetch from the api.
   useEffect(() => {
     // if [] is blank, run once when the row loads, and dosent run again.
@@ -33,7 +34,18 @@ function Row({ title, fetchUrl, isLargeRow }) {
     },
   };
 
-  const handleClick = (movie) => {};
+  const handleClick = (movie) => {
+    if (trailerUrl) {
+      setTrailerUrl("");
+    } else {
+      movieTrailer(movie?.name || " ")
+        .then((url) => {
+          const urlParams = new URLSearchParams(new URL(url).search);
+          setTrailerUrl(urlParams.get("v"));
+        })
+        .catch((error) => console.log(error));
+    }
+  };
 
   //this is state, short term memory in React. useState is the hook creating an empty movie array.
   // .map iterates through the movies array and gets each index.
@@ -42,8 +54,6 @@ function Row({ title, fetchUrl, isLargeRow }) {
       <h2>{title}</h2>
 
       <div className="row_posters">
-        {/* row_poster*/}
-
         {movies.map((movie) => (
           <img
             key={movie.id}
@@ -56,7 +66,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
           />
         ))}
       </div>
-      {trailerUrl && <YouTube videoId={trailerUrl} opt={opts}></YouTube>}
+      {trailerUrl && <YouTube videoId={trailerUrl} opt={opts} />}
     </div>
   );
 }
