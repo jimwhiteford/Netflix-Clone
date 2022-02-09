@@ -1,6 +1,8 @@
 # React - Netflix Clone
 
-This is the code repository for a Netflix Clone. It was built to learn React.js and better understand VS Code.  
+This is the code repository for a Netflix Clone. It was built to learn React.js and better understand VS Code.
+
+I have not manged to get the trailer system to work as it should and only seems to retrieve certain film trailers when clicked.
 
 The hosted application can be viewed [here](https://video-streaming-77ff5.web.app/).
 
